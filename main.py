@@ -1,7 +1,19 @@
+import random 
+
 # Constant Variables (Written in all-caps)
 MAX_LINE = 3
 MIN_BET = 1
 MAX_BET = 100
+
+ROWS = 3
+COLS = 3
+
+symbols = {
+    "A": 2,
+    "B": 4,
+    "C": 6,
+    "D": 8,
+}
 
 
 def getValue(amount):
@@ -68,19 +80,50 @@ def deposit():
     return amount
 
 
+def getSlotMachine(rows, cols, symbols):
+    allSymbols = []
+
+    for key, value in symbols.items():
+        for _ in range(value):
+            allSymbols.append(key)
+    
+    selectedColumns = []
+    for _ in range(COLS):
+        column = []
+        symbolPool = allSymbols[:]
+
+        for _ in range(ROWS):
+            choice = random.choice(symbolPool)
+            column.append(choice)
+            symbolPool.remove(choice)
+
+        selectedColumns.apppend(column)
+
+    return selectedColumns
 
 
 def main():
     balance = deposit()
-    betAmount = getBetAmount()
     lineAmount = getLineAmount()
-    totalBetAmount = lineAmount * getBetAmount
 
+    while True:
+        betAmount = getBetAmount()
+        totalBetAmount = lineAmount * betAmount
+
+        if totalBetAmount <= balance:
+            break
+        else:
+            print(f"Insufficient Funds. Balance is AU${balance}.")
+
+    print(f"Success! You have just placed a total bet of AU$ {totalBetAmount}")
+    print(f"Bet is for AU${betAmount} on {lineAmount} lines")
+    print()
+    print("Loading Slot Machine....")
+    print()
     
-    pass
 
 
-#if __name__ == "__main__":
-#    main()
+if __name__ == "__main__":
+    main()
 
-main()
+# main()
