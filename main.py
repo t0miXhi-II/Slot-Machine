@@ -8,7 +8,7 @@ MAX_BET = 100
 ROWS = 3
 COLS = 3
 
-symbols = {
+machineSymbols = {
     "A": 2,
     "B": 4,
     "C": 6,
@@ -97,9 +97,19 @@ def getSlotMachine(rows, cols, symbols):
             column.append(choice)
             symbolPool.remove(choice)
 
-        selectedColumns.apppend(column)
+        selectedColumns.append(column)
 
     return selectedColumns
+
+
+def printSlotMachine(columns):
+    for row in range(len(columns[0])):
+        for i, column in enumerate(columns):
+            if i < (len(columns) - 1):
+                print(column[row], "|", end="")
+            else:
+                print(column[row], end="")
+        print()
 
 
 def main():
@@ -120,10 +130,31 @@ def main():
     print()
     print("Loading Slot Machine....")
     print()
+    slotSpin = getSlotMachine(ROWS, COLS, machineSymbols)
+    printSlotMachine(slotSpin)
     
 
 
 if __name__ == "__main__":
     main()
+
+    # TEST CODE
+    """ testMatrix = [["A", "B", "D", "D"], ["D", "C", "D", "A"], ["B", "B", "D", "C"]]
+
+    for row in range(len(testMatrix)):
+        for cols in testMatrix[row]:
+            print(cols, "", end="")
+        print()
+
+    #for row in range(len(testMatrix[0])):
+     #   for column in testMatrix:
+      #      print(column[row])
+
+    print()
+
+    for row in range(len(testMatrix[0])):
+        for column in testMatrix:
+            print(column[row], "", end="")
+        print() """
 
 # main()
