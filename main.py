@@ -15,6 +15,13 @@ machineSymbols = {
     "D": 8,
 }
 
+values = {
+    "A": 5,
+    "B": 4,
+    "C": 3,
+    "D": 2,
+}
+
 
 def getValue(amount):
     while True:
@@ -112,6 +119,22 @@ def printSlotMachine(columns):
         print()
 
 
+def checkWinings(columns, lines, bet, values):
+    winings = 0
+
+    for line in range(lines):
+        symbol = column[0][line]
+        for column in columns:
+            symbolBeingChecked = column[line]
+            if symbol != symbolBeingChecked:
+                print(f"No match on Line {line + 1}")
+                break
+        else:
+            winings += values[symbol] * bet
+            
+    return winings
+
+
 def main():
     balance = deposit()
     lineAmount = getLineAmount()
@@ -138,6 +161,8 @@ def main():
 if __name__ == "__main__":
     main()
 
+
+
     # TEST CODE
     """ testMatrix = [["A", "B", "D", "D"], ["D", "C", "D", "A"], ["B", "B", "D", "C"]]
 
@@ -157,4 +182,3 @@ if __name__ == "__main__":
             print(column[row], "", end="")
         print() """
 
-# main()
