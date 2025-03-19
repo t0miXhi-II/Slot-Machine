@@ -121,22 +121,22 @@ def printSlotMachine(columns):
 
 def checkWinings(columns, lines, bet, values):
     winings = 0
-
+    wining_lines = []
     for line in range(lines):
-        symbol = column[0][line]
+        symbol = columns[0][line]
         for column in columns:
             symbolBeingChecked = column[line]
             if symbol != symbolBeingChecked:
-                print(f"No match on Line {line + 1}")
+                # print(f"No winings on Line {line + 1}.")
                 break
         else:
             winings += values[symbol] * bet
-            
-    return winings
+            wining_lines.append(line + 1)
+
+    return winings, wining_lines
 
 
-def main():
-    balance = deposit()
+def spin(balance):
     lineAmount = getLineAmount()
 
     while True:
@@ -153,8 +153,31 @@ def main():
     print()
     print("Loading Slot Machine....")
     print()
+
     slotSpin = getSlotMachine(ROWS, COLS, machineSymbols)
     printSlotMachine(slotSpin)
+    winings, winingLines = checkWinings(slotSpin, lineAmount, betAmount, values)
+
+    print(f"You have won AU$ {winings}.")
+    print(f"Wining Line(s):", *winingLines)
+
+    return winings - totalBetAmount
+
+
+def main():
+    balance = deposit()
+
+    while True:
+        startQuestion = input("press Enter to play or 'q' to quit: ")
+        if startQuestion == 'q':
+            break
+        else:
+            netBalance = spin(balance)
+        
+        balance += netBalance
+        print(f"Current Balance: {balance}")
+
+    
     
 
 
